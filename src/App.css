@@ -1,0 +1,56 @@
+/* Landing Page Styles */
+.gradient-bg {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 173, 144, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(217, 116, 95, 0.1), transparent);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Animation utilities */
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth image loading */
+.image-loading {
+  background: linear-gradient(90deg, #E5DECE 25%, #F5F0E1 50%, #E5DECE 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* WhatsApp button pulse */
+.whatsapp-pulse {
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(94, 173, 144, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(94, 173, 144, 0);
+  }
+}

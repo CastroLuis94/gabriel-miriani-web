@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/gabriel-miriani-web/static/css/main.74519cde.css",
-    "main.js": "/gabriel-miriani-web/static/js/main.d07125ba.js",
+    "main.css": "/gabriel-miriani-web/static/css/main.a8efde39.css",
+    "main.js": "/gabriel-miriani-web/static/js/main.5f8a88ca.js",
     "index.html": "/gabriel-miriani-web/index.html",
-    "main.74519cde.css.map": "/gabriel-miriani-web/static/css/main.74519cde.css.map",
-    "main.d07125ba.js.map": "/gabriel-miriani-web/static/js/main.d07125ba.js.map"
+    "main.a8efde39.css.map": "/gabriel-miriani-web/static/css/main.a8efde39.css.map",
+    "main.5f8a88ca.js.map": "/gabriel-miriani-web/static/js/main.5f8a88ca.js.map"
   },
   "entrypoints": [
-    "static/css/main.74519cde.css",
-    "static/js/main.d07125ba.js"
+    "static/css/main.a8efde39.css",
+    "static/js/main.5f8a88ca.js"
   ]
 }

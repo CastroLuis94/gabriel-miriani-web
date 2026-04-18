@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gabriel-miriani-web/static/css/main.74519cde.css",
+    "main.js": "/gabriel-miriani-web/static/js/main.d07125ba.js",
+    "index.html": "/gabriel-miriani-web/index.html",
+    "main.74519cde.css.map": "/gabriel-miriani-web/static/css/main.74519cde.css.map",
+    "main.d07125ba.js.map": "/gabriel-miriani-web/static/js/main.d07125ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74519cde.css",
+    "static/js/main.d07125ba.js"
+  ]
+}

@@ -1,17 +1,21 @@
 {
   "files": {
     "main.css": "/gabriel-miriani-web/static/css/main.67fd3f0b.css",
-    "main.js": "/gabriel-miriani-web/static/js/main.c6e18e69.js",
+    "main.js": "/gabriel-miriani-web/static/js/main.99253b54.js",
+    "static/media/conexion.jpg": "/gabriel-miriani-web/static/media/conexion.0a8735cd1acf798b8738.jpg",
+    "static/media/miedos.png": "/gabriel-miriani-web/static/media/miedos.0df5d7e516340f229736.png",
     "static/media/ansiedad.png": "/gabriel-miriani-web/static/media/ansiedad.2ab6a448a0e01400cdcf.png",
     "static/media/depresion.png": "/gabriel-miriani-web/static/media/depresion.ec237366cd67d5eedf8e.png",
     "static/media/inseguridades.png": "/gabriel-miriani-web/static/media/inseguridades.0c51693794dd22a41925.png",
+    "static/media/estres.jpg": "/gabriel-miriani-web/static/media/estres.c41306b2f376ab76dcd1.jpg",
     "static/media/Gabriel_Foto_Perfil.jpg": "/gabriel-miriani-web/static/media/Gabriel_Foto_Perfil.3264ae3b2e1371c49300.jpg",
+    "static/media/desarrollo.jpg": "/gabriel-miriani-web/static/media/desarrollo.1725fad9755016cfc580.jpg",
     "index.html": "/gabriel-miriani-web/index.html",
     "main.67fd3f0b.css.map": "/gabriel-miriani-web/static/css/main.67fd3f0b.css.map",
-    "main.c6e18e69.js.map": "/gabriel-miriani-web/static/js/main.c6e18e69.js.map"
+    "main.99253b54.js.map": "/gabriel-miriani-web/static/js/main.99253b54.js.map"
   },
   "entrypoints": [
     "static/css/main.67fd3f0b.css",
-    "static/js/main.c6e18e69.js"
+    "static/js/main.99253b54.js"
   ]
 }

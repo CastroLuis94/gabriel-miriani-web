@@ -2,13 +2,16 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
+  ArrowRight ,
   Menu, 
   X, 
   Video, 
   Clock, 
   Mail, 
   Instagram, 
-  Facebook, 
+  Facebook,
+  Calendar, 
+  ClipboardCheck,
   MessageCircle,
   Brain,
   Target,
@@ -17,9 +20,21 @@ import {
 } from "lucide-react";
 
 // Constants
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_aa7dffcc-fc52-4c43-afea-901d385287ec/artifacts/42v3g42d_482520383_1357196815302530_9035079255084560302_n.jpg";
-const PHOTO_URL = "https://customer-assets.emergentagent.com/job_aa7dffcc-fc52-4c43-afea-901d385287ec/artifacts/6yvioi6d_18127681-44be-47f0-9a3c-4a01dd326eb2.jpg";
+import fotoPerfil from './assets/Gabriel_Foto_Perfil.jpg'
+import fotoIcono from './assets/icono.jpg'
+const LOGO_URL = fotoIcono
+const PHOTO_URL = fotoIcono
 const WHATSAPP_LINK = "https://wa.me/5491169829416?text=Hola%20Gabriel%2C%20me%20gustar%C3%ADa%20consultar%20por%20la%20disponibilidad%20de%20turnos%20para%20pedir%20una%20sesion%20.%20Gracias!";
+
+// Helper para scroll suave (Arregla el bug de celulares)
+const scrollToSection = (e, href) => {
+  e.preventDefault();
+  const targetId = href.replace('#', '');
+  const element = document.getElementById(targetId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
 // Animation variants
 const fadeInUp = {
@@ -42,6 +57,7 @@ const staggerContainer = {
 };
 
 // Navbar Component
+// Navbar Component - VERSIÓN CORREGIDA PARA MÓVIL
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,6 +77,30 @@ const Navbar = () => {
     { href: "#contacto", label: "Contacto" }
   ];
 
+  // Función de scroll mejorada para móviles
+  const handleMobileClick = (e, targetHref) => {
+    e.preventDefault(); // Evita que el link salte de golpe
+    setIsMobileMenuOpen(false); // Cierra el menú beige
+
+    // Esperamos 300ms a que el menú empiece a cerrarse antes de scrollear
+    setTimeout(() => {
+      const targetId = targetHref.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        const offset = 80; // Ajuste para que el menú no tape el título de la sección
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 300);
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -75,17 +115,21 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-3" data-testid="navbar-logo">
+          <a 
+            href="#inicio" 
+            onClick={(e) => handleMobileClick(e, "#inicio")} 
+            className="flex items-center gap-3"
+          >
             <img 
               src={LOGO_URL} 
               alt="Logo Gabriel Miriani" 
-              className="h-12 w-12 rounded-full object-cover"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover"
             />
-            <div className="hidden sm:flex flex-col">
-              <span className="font-['Cormorant_Garamond'] text-xl font-semibold text-[#1C2A24] leading-tight">
+            <div className="flex flex-col">
+              <span className="font-['Cormorant_Garamond'] text-lg sm:text-xl font-semibold text-[#1C2A24] leading-tight">
                 Gabriel Miriani
               </span>
-              <span className="text-sm text-[#5EAD90] font-medium">
+              <span className="text-xs sm:text-sm text-[#5EAD90] font-medium">
                 Psicólogo
               </span>
             </div>
@@ -97,8 +141,8 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
                 className="text-[#3A4F44] hover:text-[#5EAD90] transition-colors duration-300 font-medium"
-                data-testid={`nav-${link.label.toLowerCase()}`}
               >
                 {link.label}
               </a>
@@ -108,7 +152,6 @@ const Navbar = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#5EAD90] text-[#F5F0E1] hover:bg-[#4A9278] rounded-full px-6 py-2.5 transition-all duration-300 font-medium shadow-lg shadow-[#5EAD90]/20 hover:shadow-xl hover:-translate-y-0.5"
-              data-testid="nav-cta-button"
             >
               Reservá tu sesión
             </a>
@@ -118,7 +161,6 @@ const Navbar = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-[#1C2A24]"
-            data-testid="mobile-menu-button"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -135,22 +177,19 @@ const Navbar = () => {
             >
               <div className="p-6 space-y-4">
                 {navLinks.map((link) => (
-                  <a
+                  <button
                     key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-[#3A4F44] hover:text-[#5EAD90] transition-colors duration-300 font-medium text-lg"
-                    data-testid={`mobile-nav-${link.label.toLowerCase()}`}
+                    onClick={(e) => handleMobileClick(e, link.href)}
+                    className="block w-full text-left text-[#3A4F44] hover:text-[#5EAD90] transition-colors duration-300 font-medium text-lg"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 ))}
                 <a
                   href={WHATSAPP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block bg-[#5EAD90] text-[#F5F0E1] text-center rounded-full px-6 py-3 font-medium mt-4"
-                  data-testid="mobile-cta-button"
                 >
                   Reservá tu sesión
                 </a>
@@ -164,34 +203,42 @@ const Navbar = () => {
 };
 
 // Slider data for Hero (texts + images)
+import foto_ansiedad from './assets/ansiedad.png';
+import foto_inseguridad from './assets/inseguridades.png';
+import foto_depresion from './assets/depresion.png';
+import foto_miedos from './assets/miedos.png';
+import foto_estres from './assets/estres.jpg';
+import foto_desarrollo from './assets/desarrollo.jpg';
+import foto_conexion from './assets/conexion.jpg';
+
 const sliderData = [
   {
     text: "Desarrollo & superación personal",
-    image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&q=80"
+    image: foto_desarrollo
   },
   {
     text: "Conexión con otros",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80"
+    image: foto_conexion
   },
   {
     text: "Gestión de la ansiedad y procesos de cambio",
-    image: "https://images.unsplash.com/photo-1623358184637-2ec651a9ea51?w=800&q=80"
+    image: foto_ansiedad
   },
   {
     text: "Superación de la depresión",
-    image: "https://images.unsplash.com/photo-1508963493744-76fce69379c0?w=800&q=80"
+    image: foto_depresion
   },
   {
     text: "Autoestima e inseguridades",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80"
+    image: foto_inseguridad
   },
   {
     text: "Estrés y cansancio",
-    image: "https://images.unsplash.com/photo-1587319949907-3399db45fafe?w=800&q=80"
+    image: foto_estres
   },
   {
     text: "Miedos",
-    image: "https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?w=800&q=80"
+    image: foto_miedos
   }
 ];
 
@@ -202,7 +249,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % sliderData.length);
-    }, 4000);
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
@@ -271,6 +318,20 @@ const HeroSection = () => {
             </div>
 
             {/* Subtitle */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center mb-16"
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl tracking-tight leading-snug text-[#1C2A24] font-['Cormorant_Garamond'] max-w-3xl mx-auto"
+            >
+              Psicoterapia Online
+            </motion.h2>
+          </motion.div>
             <p className="text-base sm:text-lg leading-relaxed text-[#3A4F44] mb-8 max-w-2xl text-center">
               Sesiones 100% virtuales: tu bienestar donde estés. Un espacio seguro 
               para trabajar en tu salud mental con herramientas prácticas y efectivas.
@@ -290,6 +351,7 @@ const HeroSection = () => {
               </a>
               <a
                 href="#especialidad"
+                onClick={(e) => scrollToSection(e, "#especialidad")}
                 className="border-2 border-[#5EAD90] text-[#5EAD90] hover:bg-[#5EAD90] hover:text-[#F5F0E1] rounded-full px-8 py-4 transition-all duration-300 font-medium text-lg text-center"
                 data-testid="hero-secondary-button"
               >
@@ -302,6 +364,7 @@ const HeroSection = () => {
         {/* Scroll indicator - clickable */}
         <motion.a 
           href="#especialidad"
+          onClick={(e) => scrollToSection(e, "#especialidad")}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -431,7 +494,7 @@ const SobreMiSection = () => {
           >
             <div className="aspect-[4/5] w-[85%] max-w-[380px] rounded-3xl overflow-hidden shadow-2xl shadow-[#5EAD90]/10">
               <img 
-                src={PHOTO_URL} 
+                src={fotoPerfil} 
                 alt="Gabriel Miriani - Psicólogo"
                 className="w-full h-full object-cover"
               />
@@ -472,22 +535,64 @@ const SobreMiSection = () => {
               </p>
             </div>
 
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#5EAD90] text-[#F5F0E1] hover:bg-[#4A9278] rounded-full px-8 py-4 transition-all duration-300 font-medium text-lg shadow-lg shadow-[#5EAD90]/20 hover:shadow-xl hover:-translate-y-1 mt-8"
-              data-testid="sobre-mi-cta-button"
-            >
-              <MessageCircle size={20} />
-              Iniciá tu proceso
-            </a>
+            
           </motion.div>
         </motion.div>
       </div>
     </section>
   );
 };
+
+const StepsSection = () => {
+  const steps = [
+    { icon: <MessageCircle className="w-6 h-6" />, text: "Escribime por WhatsApp consultando disponibilidad de turnos." },
+    { icon: <Calendar className="w-6 h-6" />, text: "Coordinamos el día y horario que mejor te quede para la sesión." },
+    { icon: <ClipboardCheck className="w-6 h-6" />, text: "Te envío la información necesaria para conectar y los medios de pago." },
+    { icon: <Video className="w-6 h-6" />, text: "¡Listo! Nos encontramos en el horario acordado para iniciar tu proceso." }
+  ];
+
+  return (
+    <section className="py-20 px-6 md:px-12 bg-[#F4F1E8]"> {/* Cambiado aquí */}
+      <div className="max-w-3xl mx-auto">
+        <motion.div 
+          variants={fadeInUp} 
+          initial="hidden" 
+          whileInView="visible" 
+          viewport={{ once: true }}
+          className="bg-white border-2 border-[#5EAD90]/10 rounded-[2.5rem] p-8 md:p-12 shadow-xl shadow-[#5EAD90]/5"
+        >
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-['Cormorant_Garamond'] text-[#1C2A24] mb-2">Cómo pedir tu sesión</h2>
+            <div className="w-16 h-1 bg-[#5EAD90] mx-auto rounded-full"></div>
+          </div>
+
+          <div className="space-y-6">
+            {steps.map((step, index) => (
+              <div key={index} className="flex items-start gap-5 p-4 rounded-2xl hover:bg-[#5EAD90]/5 transition-colors group">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#5EAD90]/10 flex items-center justify-center text-[#5EAD90] group-hover:scale-110 transition-transform">
+                  {step.icon}
+                </div>
+                <div className="pt-2">
+                  <p className="text-[#3A4F44] text-lg font-medium leading-tight">
+                    <span className="text-[#5EAD90] mr-2">{index + 1}.</span> {step.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+        <div className="mt-10 text-center">
+            <a href={WHATSAPP_LINK} className="inline-flex items-center gap-2 text-[#5EAD90] font-bold hover:underline">
+              Pedir turno ahora <ArrowRight size={18} />
+            </a>
+          </div>
+          {/* ... */}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 
 // Horarios Section
 const HorariosSection = () => {
@@ -557,8 +662,6 @@ const HorariosSection = () => {
               <p className="font-medium text-[#1C2A24]">Lunes a Viernes</p>
               <p>9:00 a 20:00 hs</p>
               <div className="w-12 h-px bg-[#E5DECE] mx-auto my-3" />
-              <p className="font-medium text-[#1C2A24]">Sábados</p>
-              <p>10:00 a 13:00 hs</p>
             </div>
           </motion.div>
         </motion.div>
@@ -701,6 +804,7 @@ function App() {
         <HeroSection />
         <EspecialidadSection />
         <SobreMiSection />
+        <StepsSection />
         <HorariosSection />
         <ContactSection />
       </main>

@@ -1,6 +1,6 @@
 {
   "name": "landing-psicologo-tcc",
-  "homepage": "https://tuusuario.github.io/nombre-del-repo",
+  "homepage": "https://gabrielmiriani.com.ar",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [

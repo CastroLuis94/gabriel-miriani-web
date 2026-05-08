@@ -512,13 +512,10 @@ const SobreMiSection = () => {
             <h2 className="text-3xl sm:text-4xl tracking-tight leading-snug text-[#1C2A24] font-['Cormorant_Garamond'] mb-2">
               Gabriel Miriani
             </h2>
-            <p className="text-[#D9745F] font-medium mb-6">
-              Psicólogo
-            </p>
             
             <div className="space-y-4 text-[#3A4F44] leading-relaxed">
               <p>
-                Soy psicólogo clínico especializado en Terapia Cognitivo Conductual, 
+                Soy Licenciado en psicología especializado en Terapia Cognitivo Conductual, 
                 con años de experiencia acompañando a personas en su proceso de 
                 bienestar emocional.
               </p>
